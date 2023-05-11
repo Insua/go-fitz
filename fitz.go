@@ -183,6 +183,9 @@ func (f *Document) Image(pageNumber int) (image.Image, error) {
 
 // ImageDPI returns image for given page number and DPI.
 func (f *Document) ImageDPI(pageNumber int, dpi float64) (image.Image, error) {
+	f.mtx.Lock()
+	defer f.mtx.Unlock()
+
 	img := image.RGBA{}
 
 	if pageNumber >= f.NumPage() {
